@@ -3,6 +3,7 @@ package com.sohamkamani.spring_rag_demo.rag;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage; // Changed import
 import org.springframework.ai.chat.prompt.Prompt;
@@ -17,30 +18,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class RagService {
 
-  private final ChatClient chatClient;
-  private final VectorStore vectorStore;
+    private final ChatClient chatClient;
+    private final VectorStore vectorStore;
 
-  @Value("classpath:/prompts/rag-prompt.st")
-  private Resource ragPromptTemplate;
+    @Value("classpath:/prompts/rag-prompt.st")
+    private Resource ragPromptTemplate;
 
-  public RagService(ChatClient.Builder chatClientBuilder, VectorStore vectorStore) {
-    this.chatClient = chatClientBuilder.build();
-    this.vectorStore = vectorStore;
-  }
+    public RagService(ChatClient.Builder chatClientBuilder, VectorStore vectorStore) {
+        this.chatClient = chatClientBuilder
+                .build();
+        this.vectorStore = vectorStore;
+    }
 
-  public String retrieveAndGenerate(String message) {
-    List<Document> similarDocuments =
-        vectorStore.similaritySearch(SearchRequest.builder().query(message).topK(4).build());
+    public String retrieveAndGenerate(String message) {
+        List<Document> similarDocuments = vectorStore
+                .similaritySearch(SearchRequest.builder().query(message).topK(4).build());
+        String information = similarDocuments.stream()
+                .map(Document::getText)
+                .collect(Collectors.joining("\n"));
 
-    String information = similarDocuments.stream()
-        .map(Document::getText)
-        .collect(Collectors.joining("\n"));
-
-    SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(ragPromptTemplate);
-    Prompt prompt = new Prompt(List.of(
-        systemPromptTemplate.createMessage(Map.of("information", information)),
-        new UserMessage(message)));
-
-    return chatClient.prompt(prompt).call().content(); // Changed ChatClient usage
-  }
+        SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(ragPromptTemplate);
+        Prompt prompt = new Prompt(List.of(
+                systemPromptTemplate.createMessage(Map.of("information", information)),
+                new UserMessage(message)));
+        return chatClient.prompt(prompt).call().content(); // Changed ChatClient usage
+    }
 }
