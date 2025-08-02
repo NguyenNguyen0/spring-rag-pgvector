@@ -26,10 +26,21 @@ This project demonstrates a simple Retrieval Augmented Generation (RAG) pipeline
 3.  **PostgreSQL with PGVector Extension:**
     *   Install PostgreSQL.
     *   Install the `pgvector` extension. You might need to compile it from source or use a pre-built image (e.g., `pgvector/pgvector`).
-    *   Create a database (e.g., `rag_demo`).
-    *   Enable the `vector` extension in your database:
+    *   Create a database (e.g., `rag_demo`). `CREATE DATABASE rag_demo;`
+    *   Enable the `vector` extension in your database (after connecting to your database `\c rag_demo`):
         ```sql
-        CREATE EXTENSION vector;
+        CREATE EXTENSION IF NOT EXISTS vector;
+        CREATE EXTENSION IF NOT EXISTS hstore;
+        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+        CREATE TABLE IF NOT EXISTS vector_store (
+            id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+            content text,
+            metadata json,
+            embedding vector(768) 
+        );
+
+        CREATE INDEX ON vector_store USING HNSW (embedding vector_cosine_ops);
         ```
 4.  **OpenAI API Key:** Obtain an API key from OpenAI.
 
@@ -50,7 +61,7 @@ This project demonstrates a simple Retrieval Augmented Generation (RAG) pipeline
     ```
 2.  **Run the application:**
     ```bash
-    ./gradlew bootRun
+    OPENROUTER_API_KEY=YOUR_OPENROUTER_API_KEY ./gradlew bootRun
     ```
     The `DocumentLoader` will automatically load sample documents into your PGVector database on startup.
 

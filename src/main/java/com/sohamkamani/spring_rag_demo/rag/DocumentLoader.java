@@ -20,12 +20,15 @@ public class DocumentLoader implements CommandLineRunner {
     public void run(String... args) {
         List<Document> documents = List.of(
                 new Document(
-                        "Spring AI provides a comprehensive framework for developing AI applications."),
-                new Document("PGVector is a PostgreSQL extension for vector similarity search."),
+                        "StarlightDB is a serverless graph database designed for real-time analytics on complex, interconnected data."),
                 new Document(
-                        "Retrieval Augmented Generation (RAG) combines retrieval of relevant information with text generation."),
+                        "The core of StarlightDB is its 'Quantum-Leap' query engine, which uses speculative execution to deliver query results up to 100x faster than traditional graph databases."),
                 new Document(
-                        "Spring Boot simplifies the development of production-ready Spring applications."));
+                        "StarlightDB features 'Chrono-Sync' for effortless time-travel queries, allowing developers to query the state of their graph at any point in the past."),
+                new Document(
+                        "StarlightDB includes a built-in visualization tool called 'Nebula' that renders interactive 3D graphs directly within the development environment for easier analysis."),
+                new Document(
+                        "Security in StarlightDB is handled by 'Cosmic Shield', which provides end-to-end encryption and fine-grained access control at the node and edge level."));
         vectorStore.add(documents);
         System.out.println("Documents loaded into VectorStore.");
     }
