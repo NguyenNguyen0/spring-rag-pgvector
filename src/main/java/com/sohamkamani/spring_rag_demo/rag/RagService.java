@@ -32,15 +32,22 @@ public class RagService {
 
     public String retrieveAndGenerate(String message) {
         List<Document> similarDocuments = vectorStore
-                .similaritySearch(SearchRequest.builder().query(message).topK(4).build());
+                .similaritySearch(SearchRequest
+                        .builder()
+                        .query(message)
+                        .topK(4)
+                        .build());
+        System.out.println(">>> Similar documents: " + similarDocuments);
         String information = similarDocuments.stream()
                 .map(Document::getText)
                 .collect(Collectors.joining("\n"));
 
         SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(ragPromptTemplate);
         Prompt prompt = new Prompt(List.of(
-                systemPromptTemplate.createMessage(Map.of("information", information)),
+                systemPromptTemplate.createMessage(
+                        Map.of("information", information)),
                 new UserMessage(message)));
+        System.out.println(">>> Prompt: " + prompt.getContents());
         return chatClient.prompt(prompt).call().content(); // Changed ChatClient usage
     }
 }
