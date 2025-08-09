@@ -2,6 +2,10 @@
 
 This project demonstrates a simple Retrieval Augmented Generation (RAG) pipeline using Spring AI, PGVector as the vector store, and OpenAI for embedding and chat models.
 
+[Read the full tutorial here.](https://www.sohamkamani.com/java/spring-ai-rag-application/)
+
+Or watch the tutorial on [YouTube](https://www.youtube.com/watch?v=7TdOwFcLV5s&ab_channel=SohamKamani).
+
 ## Components
 
 *   **Spring Boot Application:** The main application that orchestrates the RAG pipeline.
