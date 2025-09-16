@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  pgvector:
+    image: myuser/pgvector
+    container_name: pgvector_container
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_DB: geminidb
+    ports:
+      - "5432:5432"  # Map cổng PostgreSQL từ container ra máy chủ
+    volumes:
+      - pgvector_data:/var/lib/postgresql/data  # Lưu trữ dữ liệu PostgreSQL để không bị mất khi container dừng
+
+volumes:
+  pgvector_data:
