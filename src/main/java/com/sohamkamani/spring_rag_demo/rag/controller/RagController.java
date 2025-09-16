@@ -1,10 +1,13 @@
-package com.sohamkamani.spring_rag_demo.rag;
+package com.sohamkamani.spring_rag_demo.rag.controller;
 
+import com.sohamkamani.spring_rag_demo.rag.service.RagService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/ai")
 public class RagController {
 
     private final RagService ragService;
@@ -13,11 +16,11 @@ public class RagController {
         this.ragService = ragService;
     }
 
-    @PostMapping("/ai/rag")
+    @PostMapping("/rag")
     public String generate(@RequestBody MessageRequest request) {
         return ragService.retrieveAndGenerate(request.message());
     }
 
-    public static record MessageRequest(String message) {
+    public record MessageRequest(String message) {
     }
 }

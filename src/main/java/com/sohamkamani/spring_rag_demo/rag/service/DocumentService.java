@@ -1,6 +1,4 @@
-package com.sohamkamani.spring_rag_demo.rag;
-
-// src/main/java/com/sohamkamani/spring_rag_demo/rag/DocumentService.java
+package com.sohamkamani.spring_rag_demo.rag.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +8,7 @@ import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.pgvector.PgVectorStore;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 @Service
@@ -40,7 +39,8 @@ public class DocumentService {
                     // Use a JSON library like Jackson to parse the metadata
                     try {
                         ObjectMapper mapper = new ObjectMapper();
-                        Map<String, Object> metadataMap = mapper.readValue(metadataJson, new TypeReference<Map<String, Object>>() {});
+                        Map<String, Object> metadataMap = mapper.readValue(metadataJson, new TypeReference<Map<String, Object>>() {
+                        });
                         // Add all parsed metadata to the document
                         doc.getMetadata().putAll(metadataMap);
                     } catch (Exception e) {
@@ -52,34 +52,30 @@ public class DocumentService {
             });
         }
         List<Document> results = vectorStore.similaritySearch(
-            SearchRequest.builder()
-                .query("")
-                .filterExpression("id == '" + id + "'")
-                .topK(1)
-                .build()
+                SearchRequest.builder()
+                        .query("")
+                        .filterExpression("id == '" + id + "'")
+                        .topK(1)
+                        .build()
         );
 
         return results.isEmpty() ? null : results.get(0);
     }
 
     public Document create(Document doc) {
-        // Generate a unique ID if not present
         if (doc.getMetadata().get("id") == null) {
             doc.getMetadata().put("id", UUID.randomUUID().toString());
         }
-        // Add the document to the vector store
+
         vectorStore.add(Collections.singletonList(doc));
         return doc;
     }
 
     public Document update(String id, Document doc) {
-        // Ensure the document has the correct ID
         doc.getMetadata().put("id", id);
-        
-        // Remove the old document first
+
         delete(id);
-        
-        // Add the updated document
+
         vectorStore.add(Collections.singletonList(doc));
         return doc;
     }
@@ -89,13 +85,11 @@ public class DocumentService {
     }
 
     public void addAll(List<Document> docs) {
-        // Ensure all documents have IDs
         for (Document doc : docs) {
             if (doc.getMetadata().get("id") == null) {
                 doc.getMetadata().put("id", UUID.randomUUID().toString());
             }
         }
-        // Add all documents to the vector store
         vectorStore.add(docs);
     }
 }

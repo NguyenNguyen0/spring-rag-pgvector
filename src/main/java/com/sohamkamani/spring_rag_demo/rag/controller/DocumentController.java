@@ -1,11 +1,13 @@
-package com.sohamkamani.spring_rag_demo.rag;
+package com.sohamkamani.spring_rag_demo.rag.controller;
 
 // src/main/java/com/sohamkamani/spring_rag_demo/rag/DocumentController.java
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import com.sohamkamani.spring_rag_demo.rag.service.DocumentService;
 import org.springframework.ai.document.Document;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 @RestController

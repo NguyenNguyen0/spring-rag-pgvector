@@ -1,16 +1,16 @@
 package com.sohamkamani.spring_rag_demo.rag;
 
+import com.sohamkamani.spring_rag_demo.rag.service.DocumentService;
+import org.springframework.ai.document.Document;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 @Component
 public class DocumentLoader implements CommandLineRunner {

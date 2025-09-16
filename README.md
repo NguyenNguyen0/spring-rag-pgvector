@@ -34,12 +34,14 @@ Or watch the tutorial on [YouTube](https://www.youtube.com/watch?v=7TdOwFcLV5s&a
     *   Enable the `vector` extension in your database (after connecting to your database `\c rag_demo`):
         ```sql
         CREATE EXTENSION IF NOT EXISTS vector;
+        CREATE EXTENSION IF NOT EXISTS hstore;
         CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
         CREATE TABLE IF NOT EXISTS vector_store (
             id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
             content text,
-            embedding vector(768) 
+            metadata json,
+            embedding vector(768)
         );
 
         CREATE INDEX ON vector_store USING HNSW (embedding vector_cosine_ops);
