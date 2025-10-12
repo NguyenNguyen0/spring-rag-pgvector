@@ -23,7 +23,12 @@ public class DocumentLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if (!documentService.getAll().isEmpty()) {
+            return;
+        }
+
         List<Document> docs = new ArrayList<>();
+
         try {
             Path dir = Paths.get("src/main/resources/documents");
             if (Files.exists(dir)) {
