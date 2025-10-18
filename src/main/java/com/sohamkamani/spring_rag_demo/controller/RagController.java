@@ -1,6 +1,6 @@
-package com.sohamkamani.spring_rag_demo.rag.controller;
+package com.sohamkamani.spring_rag_demo.controller;
 
-import com.sohamkamani.spring_rag_demo.rag.service.RagService;
+import com.sohamkamani.spring_rag_demo.service.RagService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

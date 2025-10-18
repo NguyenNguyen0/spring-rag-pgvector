@@ -1,9 +1,8 @@
-package com.sohamkamani.spring_rag_demo.rag.controller;
+package com.sohamkamani.spring_rag_demo.controller;
 
-import com.sohamkamani.spring_rag_demo.rag.service.DocumentService;
+import com.sohamkamani.spring_rag_demo.service.DocumentService;
 import org.springframework.ai.document.Document;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;

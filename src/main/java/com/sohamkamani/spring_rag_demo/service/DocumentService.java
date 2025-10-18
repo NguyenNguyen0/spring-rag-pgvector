@@ -1,4 +1,4 @@
-package com.sohamkamani.spring_rag_demo.rag.service;
+package com.sohamkamani.spring_rag_demo.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,6 +1,6 @@
-package com.sohamkamani.spring_rag_demo.rag;
+package com.sohamkamani.spring_rag_demo;
 
-import com.sohamkamani.spring_rag_demo.rag.service.DocumentService;
+import com.sohamkamani.spring_rag_demo.service.DocumentService;
 import org.springframework.ai.document.Document;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
